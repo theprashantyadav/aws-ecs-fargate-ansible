@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.env/
+
+# Ansible
+*.retry
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# AWS Credentials
+.aws/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Secrets
+secrets.yml
+*.pem
+*.key
+
+# Ansible Vault
+vault.yml
+
+# Temporary Files
+tmp/
+temp/
+
+# Cache
+.cache/
+
+# Local Config
+.env.local
+
+# Mac/Linux
+*.swp

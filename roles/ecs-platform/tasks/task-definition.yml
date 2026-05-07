@@ -1,0 +1,30 @@
+- name: Register Task Definition
+  community.aws.ecs_taskdefinition:
+    family: "{{ ecs_service.name }}"
+
+    launch_type: FARGATE
+
+    cpu: "{{ ecs_service.cpu }}"
+    memory: "{{ ecs_service.memory }}"
+
+    network_mode: awsvpc
+
+    execution_role_arn: "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole"
+
+    containers:
+      - name: "{{ ecs_service.name }}"
+
+        image: "{{ ecr.repository.repositoryUri }}:latest"
+
+        essential: true
+
+        cpu: "{{ ecs_service.cpu }}"
+        memory: "{{ ecs_service.memory }}"
+
+        portMappings:
+          - containerPort: "{{ ecs_service.container_port }}"
+            hostPort: "{{ ecs_service.container_port }}"
+
+    state: present
+
+    region: "{{ aws_region }}"

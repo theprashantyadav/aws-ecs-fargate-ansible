@@ -1,0 +1,4 @@
+- name: Create CodeDeploy Application
+  community.aws.codedeploy_application:
+    application_name: ecs-codedeploy
+    compute_platform: ECS

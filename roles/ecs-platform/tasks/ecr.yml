@@ -1,0 +1,6 @@
+- name: Create ECR Repository
+  community.aws.ecs_ecr:
+    name: "{{ project_name }}"
+    state: present
+    region: "{{ aws_region }}"
+  register: ecr

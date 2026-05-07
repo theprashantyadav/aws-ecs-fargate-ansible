@@ -1,0 +1,27 @@
+- name: Register scalable target
+  shell: |
+    aws application-autoscaling register-scalable-target \
+      --service-namespace ecs \
+      --resource-id service/{{ ecs_cluster_name }}/{{ ecs_service.name }} \
+      --scalable-dimension ecs:service:DesiredCount \
+      --min-capacity {{ ecs_service.min_capacity }} \
+      --max-capacity {{ ecs_service.max_capacity }} \
+      --region {{ aws_region }}
+
+- name: Create scaling policy
+  shell: |
+    aws application-autoscaling put-scaling-policy \
+      --service-namespace ecs \
+      --resource-id service/{{ ecs_cluster_name }}/{{ ecs_service.name }} \
+      --scalable-dimension ecs:service:DesiredCount \
+      --policy-name {{ ecs_service.name }}-cpu-policy \
+      --policy-type TargetTrackingScaling \
+      --target-tracking-scaling-policy-configuration '{
+        "TargetValue": 70.0,
+        "PredefinedMetricSpecification": {
+          "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+        },
+        "ScaleInCooldown": 60,
+        "ScaleOutCooldown": 60
+      }' \
+      --region {{ aws_region }}

@@ -1,0 +1,26 @@
+- include_tasks: task-definition.yml
+
+- name: Create ECS Service
+  community.aws.ecs_service:
+
+    state: present
+
+    name: "{{ ecs_service.name }}"
+
+    cluster: "{{ ecs_cluster_name }}"
+
+    task_definition: "{{ ecs_service.name }}"
+
+    desired_count: "{{ ecs_service.desired_count }}"
+
+    launch_type: FARGATE
+
+    network_configuration:
+      subnets: "{{ public_subnet_output.results | map(attribute='subnet.id') | list }}"
+
+      security_groups:
+        - "{{ ecs_sg.group_id }}"
+
+      assign_public_ip: true
+
+    region: "{{ aws_region }}"

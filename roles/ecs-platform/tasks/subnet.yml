@@ -1,0 +1,20 @@
+- name: Create Public Subnets
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ item.0 }}"
+    az: "{{ item.1 }}"
+    map_public: true
+    state: present
+    region: "{{ aws_region }}"
+  loop: "{{ public_subnets | zip(availability_zones) | list }}"
+  register: public_subnet_output
+
+- name: Create Private Subnets
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ item.0 }}"
+    az: "{{ item.1 }}"
+    state: present
+    region: "{{ aws_region }}"
+  loop: "{{ private_subnets | zip(availability_zones) | list }}"
+  register: private_subnet_output

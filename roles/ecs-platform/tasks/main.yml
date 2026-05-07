@@ -1,0 +1,21 @@
+- include_tasks: vpc.yml
+- include_tasks: subnet.yml
+- include_tasks: internet-gateway.yml
+- include_tasks: route-table.yml
+- include_tasks: security-group.yml
+- include_tasks: alb.yml
+- include_tasks: ecr.yml
+- include_tasks: ecs-cluster.yml
+
+- include_tasks: ecs-service.yml
+  loop: "{{ ecs_services }}"
+  loop_control:
+    loop_var: ecs_service
+
+- include_tasks: autoscaling.yml
+  loop: "{{ ecs_services }}"
+  loop_control:
+    loop_var: ecs_service
+
+- include_tasks: cloudwatch.yml
+- include_tasks: outputs.yml

@@ -1,0 +1,7 @@
+- name: Create CloudWatch Log Groups
+  community.aws.cloudwatchlogs_log_group:
+    log_group_name: "/ecs/{{ item.name }}"
+    retention: 14
+    state: present
+    region: "{{ aws_region }}"
+  loop: "{{ ecs_services }}"

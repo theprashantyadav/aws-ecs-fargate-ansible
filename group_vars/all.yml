@@ -1,0 +1,28 @@
+aws_region: ap-south-1
+project_name: prod-app
+
+vpc_cidr: 10.0.0.0/16
+
+public_subnets:
+  - 10.0.1.0/24
+  - 10.0.2.0/24
+
+private_subnets:
+  - 10.0.10.0/24
+  - 10.0.20.0/24
+
+availability_zones:
+  - ap-south-1a
+  - ap-south-1b
+
+ecs_cluster_name: prod-ecs
+
+ecs_services:
+  - name: backend
+    image: backend:latest
+    cpu: 1024
+    memory: 2048
+    desired_count: 2
+    container_port: 8000
+    min_capacity: 2
+    max_capacity: 5

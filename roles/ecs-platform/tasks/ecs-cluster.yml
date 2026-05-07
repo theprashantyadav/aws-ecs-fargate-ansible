@@ -1,0 +1,5 @@
+- name: Create ECS Cluster
+  community.aws.ecs_cluster:
+    name: "{{ ecs_cluster_name }}"
+    state: present
+    region: "{{ aws_region }}"

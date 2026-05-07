@@ -1,0 +1,7 @@
+- name: Create VPC
+  amazon.aws.ec2_vpc_net:
+    name: "{{ project_name }}-vpc"
+    cidr_block: "{{ vpc_cidr }}"
+    region: "{{ aws_region }}"
+    state: present
+  register: vpc
