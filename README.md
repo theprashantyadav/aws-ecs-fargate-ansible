@@ -280,37 +280,7 @@ Run:
 ```bash
 ansible-playbook -i inventories/prod/hosts.yml deploy.yml
 ```
-
 ---
-
-# Verify Resources
-
-## ECS Cluster
-
-```bash
-aws ecs list-clusters --region ap-south-1
-```
-
----
-
-## ECS Services
-
-```bash
-aws ecs list-services \
---cluster prod-ecs \
---region ap-south-1
-```
-
----
-
-## Load Balancer
-
-```bash
-aws elbv2 describe-load-balancers \
---region ap-south-1
-```
----
-
 # Author
 
 Prashant Yadav
